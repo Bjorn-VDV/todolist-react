@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import TodoList from './TodoList';
+import React, { useRef, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import './css.css'
 
-function App() {
+function App()
+{
+  const TodoNameRef = useRef();
+  const [todos, setTodos] = useState([]);
+
+  let toggleTodo = (id) =>
+  {
+    const newTodos = [...todos]
+    const todo = newTodos.find(todo => todo.id === id)
+    todo.complete = !todo.complete
+    setTodos(newTodos)
+  }
+
+  let HandleAddTodo = () =>
+  {
+    const name = TodoNameRef.current.value
+    if (name === "") return
+    setTodos(prevTodos =>
+    {
+      return [...prevTodos, { id: uuidv4(), name: name, complete: false }]
+    })
+    TodoNameRef.current.value = null
+  }
+
+  let ClearCompleted = () =>
+  {
+    const newTodos = todos.filter(todos => !todos.complete)
+    setTodos(newTodos)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <TodoList todos={todos} toggleTodo={toggleTodo} />
+      <input ref={TodoNameRef} type="text"></input>
+      <button onClick={HandleAddTodo}>Add Todo</button>
+      <button onClick={ClearCompleted}>Clear completed todos</button>
+      <div>{todos.filter(todos => !todos.complete).length} todos left</div>
+    </>
+  )
 }
 
 export default App;
