@@ -44,6 +44,7 @@ function App()
   // prevTodos will take all the todos we have, and we add a new one to it with values:
   // ID: Created by RNG. Name: Name reference. Completes: Defaulted to false.
   // We then set the nameref back to null.
+  // ... also made a check for being a robot or not.
   let HandleAddTodo = () =>
   {
     if (!isNotRobot)
@@ -69,6 +70,7 @@ function App()
     setTodos(newTodos)
   }
 
+  // Simple function to change bool from true to false on a checkbox.
   let handleIsRobot = () =>
   {
     setIsNotRobot(current => !current);
