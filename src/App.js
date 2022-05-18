@@ -1,7 +1,9 @@
 import TodoList from './TodoList';
+import Currency from './currency';
 import React, { useRef, useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import './css.css'
+
 
 function App()
 {
@@ -92,6 +94,8 @@ function App()
       <button onClick={ClearCompleted}>Clear completed todos</button>
       <div>{todos.filter(todos => !todos.complete).length} todos left</div>
       <label><input type="checkbox" value={isNotRobot} onChange={handleIsRobot}></input> I am not a Robot</label>
+      <div><h1>CURRENCY EXCHANGER API FUN</h1></div>
+      <Currency />
     </>
   )
 }
